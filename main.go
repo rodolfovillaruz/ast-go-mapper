@@ -320,7 +320,7 @@ func printMap(path string, m FileMap) {
 }
 
 func main() {
-	targetDir := "src"
+	targetDir := "."
 	if _, err := os.Stat(targetDir); os.IsNotExist(err) {
 		fmt.Fprintf(os.Stderr, "Error: Directory '%s' not found.\n", targetDir)
 		return
