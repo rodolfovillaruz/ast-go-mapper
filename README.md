@@ -43,36 +43,44 @@ Run the tool from the root of your Go project (or any directory containing `.go`
 ast-go-mapper
 ```
 
-By default it maps all `.go` files in the current directory (recursively).  
-If you want to map a different directory, pass it as an argument:
-
-```bash
-ast-go-mapper /path/to/your/project
-```
-
 ### Example output
 
 ```
 🗺️  Generating code map for: .
 
+📄 func.go
+  📥 Imports:
+     - "bytes"
+     - "fmt"
+     - "go/ast"
+     - "go/parser"
+     - "go/printer"
+     - "go/token"
+     - "strings"
+  ⚡ Free Functions:
+     - nodeToString(n ast.Node)
+     - formatArgs(fields []*ast.Field)
+     - formatVisibility(exported bool)
+     - hasIota(expr ast.Expr)
+     - isExportedType(typ ast.Expr)
+     - processFile(path string)
+     - printMap(path string, m FileMap)
+
 📄 main.go
   📥 Imports:
      - "fmt"
+     - "os"
+     - "path/filepath"
      - "strings"
-  📦 Structs:
-     - User { pub Name: string, pub Age: int }
-  🎲 Enums:
-     - int
-  📜 Traits:
-     - Writer
   ⚡ Free Functions:
-     - Greet(name string)
-  🔧 Impl Methods:
-     - User::FullName()
+     - main()
 
-📄 utils.go
+📄 struct.go
   📦 Structs:
-     - Helper(pub Logger)
+     - StructField { pub Name: string, pub Exported: bool, pub Type: string }
+     - StructDetails { pub Name: string, pub Fields: []StructField }
+     - FuncMap { pub Name: string }
+     - FileMap { pub Imports: []string, pub Structs: []StructDetails, pub Enums: []string, pub Traits: []string, pub Functions: []FuncMap, pub Methods: []FuncMap }
 ```
 
 ## How it works
